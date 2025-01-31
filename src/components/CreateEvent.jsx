@@ -34,14 +34,26 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
 
   const handleMediaChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setMediaPreview(reader.result);
-        setMediaFile(reader.result);
-      };
-      reader.readAsDataURL(file);
+
+    if (!file) {
+      console.log("No file selected");
+      return;
     }
+
+    console.log("Selected File:", file);
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      console.log("File Loaded Successfully:", reader.result);
+      setMediaPreview(reader.result);
+      setMediaFile(reader.result);
+    };
+
+    reader.onerror = (error) => {
+      console.error("Error reading file:", error);
+    };
+
+    reader.readAsDataURL(file);
   };
 
   const handleSubmit = (e) => {
@@ -82,7 +94,7 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
     <div className="max-w-md mx-auto p-4">
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="space-y-2">
-          <Label>Event Media</Label>
+          <Label>Add Photo</Label>
           <input
             type="file"
             accept="image/*,video/*"
@@ -122,37 +134,59 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
             </SelectContent>
           </Select>
         </div>
+        <div className="space-y-2">
+          <Label>Title</Label>
 
-        <Input
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Event Title"
-          required
-        />
-        <Input
-          type="datetime-local"
-          value={startDateTime}
-          onChange={(e) => setStartDateTime(e.target.value)}
-          required
-        />
-        <Input
-          type="datetime-local"
-          value={endDateTime}
-          onChange={(e) => setEndDateTime(e.target.value)}
-          required
-        />
-        <Input
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          placeholder="Location"
-          required
-        />
-        <Textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="Description"
-          required
-        />
+          <Input
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Event Title"
+            required
+          />
+        </div>
+        <div className="space-y-2">
+          <div className="flex flex-row justify-between items-center">
+            <Label>Start Date</Label>
+
+            <Input
+              className="max-w-60"
+              type="datetime-local"
+              value={startDateTime}
+              onChange={(e) => setStartDateTime(e.target.value)}
+              required
+            />
+          </div>
+          <div className="flex flex-row justify-between items-center">
+            <Label>End Date</Label>
+
+            <Input
+              className="max-w-60"
+              type="datetime-local"
+              value={endDateTime}
+              onChange={(e) => setEndDateTime(e.target.value)}
+              required
+            />
+          </div>
+        </div>
+        <div className="space-y-2">
+          <Label>Location</Label>
+          <Input
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            placeholder="Location"
+            required
+          />
+        </div>
+        <div className="space-y-2">
+          <Label>Add Description</Label>
+
+          <Textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Description"
+            required
+          />
+        </div>
         <Button type="submit">Create Event</Button>
       </form>
     </div>

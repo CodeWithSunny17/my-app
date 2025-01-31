@@ -16,6 +16,12 @@ export default function Home() {
     }
   }, []);
 
+  const handleDelete = (eventId) => {
+    const updatedEvents = events.filter(event => event.id !== eventId);
+    setEvents(updatedEvents);
+    localStorage.setItem("events", JSON.stringify(updatedEvents));
+  };
+
   return (
     <div className="min-h-screen bg-white">
       {/* Navbar */}
@@ -43,7 +49,7 @@ export default function Home() {
         {activeTab === "create" ? (
           <CreateEvent setEvents={setEvents} setActiveTab={setActiveTab} />
         ) : (
-          <MyEvents events={events} />
+          <MyEvents events={events} handleDelete={handleDelete} />
         )}
       </div>
 
