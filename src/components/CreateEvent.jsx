@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef } from "react";
-import { Image } from "lucide-react";
+import { Calendar, MapPin, Image, Plus } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/select";
 
 export default function CreateEvent({ setEvents, setActiveTab }) {
+  //state variables
   const [mediaPreview, setMediaPreview] = useState(null);
   const [mediaFile, setMediaFile] = useState(null);
   const [community, setCommunity] = useState("");
@@ -93,36 +94,59 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
   return (
     <div className="max-w-md mx-auto p-4">
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="space-y-2">
-          <Label>Add Photo</Label>
+        <div
+          style={{
+            backgroundImage: `url(${
+              mediaPreview ? mediaPreview : `/image.png`
+            })`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+          className="space-y-2 relative aspect-[4/5] w-full overflow-hidden rounded-lg "
+        >
+          {/* <Label htmlFor="media-upload" className="text-sm font-medium">
+            Event Media
+          </Label> */}
           <input
             type="file"
             accept="image/*,video/*"
             onChange={handleMediaChange}
             ref={fileInputRef}
             className="hidden"
+            id="media-upload"
           />
           <Button
-            onClick={() => fileInputRef.current.click()}
+            type="button"
+            onClick={() => document.getElementById("media-upload").click()}
             variant="outline"
-            className="w-full py-6 border-dashed border-2 bg-gray-50"
+            className="absolute bottom-6 w-full py-6 border-dashed border-2 bg-gray-50"
           >
-            <Image className="h-6 w-6 text-gray-400" />
-            Upload Media
+            <div className="flex flex-col items-center gap-2">
+              <Image className="h-6 w-6 text-gray-400" />
+              {mediaPreview ? (
+                <span className="text-gray-600">Replace Media</span>
+              ) : (
+                <span className="text-gray-600">Upload Media</span>
+              )}
+            </div>
           </Button>
-          {mediaPreview && (
-            <img
-              src={mediaPreview}
-              alt="Preview"
-              className="w-full h-auto rounded-lg"
-            />
-          )}
+          {/* {mediaPreview && (
+            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-lg bg-gray-100">
+              <img
+                src={mediaPreview}
+                alt="Preview"
+                className="h-full w-full object-cover"
+              />
+            </div>
+          )} */}
         </div>
 
         <div className="space-y-2">
-          <Label>Community</Label>
-          <Select value={community} onValueChange={setCommunity}>
-            <SelectTrigger>
+          <Label htmlFor="community" className="text-sm font-medium">
+            Community
+          </Label>
+          <Select value={community} onValueChange={setCommunity} id="community">
+            <SelectTrigger className="w-full py-3">
               <SelectValue placeholder="Select Community" />
             </SelectTrigger>
             <SelectContent>
@@ -134,56 +158,87 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
             </SelectContent>
           </Select>
         </div>
-        <div className="space-y-2">
-          <Label>Title</Label>
 
+        <div className="space-y-2">
+          <Label htmlFor="title" className="text-sm font-medium">
+            Event Title
+          </Label>
           <Input
+            id="title"
+            type="text"
+            placeholder="Enter event title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            placeholder="Event Title"
+            className="w-full px-4 py-3 text-lg"
             required
           />
         </div>
+
         <div className="space-y-2">
-          <div className="flex flex-row justify-between items-center">
-            <Label>Start Date</Label>
-
-            <Input
-              className="max-w-60"
-              type="datetime-local"
-              value={startDateTime}
-              onChange={(e) => setStartDateTime(e.target.value)}
-              required
-            />
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-row justify-between items-center space-y-2">
+              <Label htmlFor="start-datetime" className="text-sm font-medium">
+                Start Date & Time
+              </Label>
+              <div className="relative">
+                <Calendar className="absolute left-3 top-2 h-5 w-5 text-gray-400" />
+                <Input
+                  id="start-datetime"
+                  type="datetime-local"
+                  value={startDateTime}
+                  onChange={(e) => setStartDateTime(e.target.value)}
+                  className="pl-10 py-3"
+                  required
+                />
+              </div>
+            </div>
+            <div className="flex flex-row justify-between items-center space-y-2">
+              <Label htmlFor="end-datetime" className="text-sm font-medium">
+                End Date & Time
+              </Label>
+              <div className="relative">
+                <Calendar className="absolute left-3 top-2 h-5 w-5 text-gray-400" />
+                <Input
+                  id="end-datetime"
+                  type="datetime-local"
+                  value={endDateTime}
+                  onChange={(e) => setEndDateTime(e.target.value)}
+                  className="pl-10 py-3"
+                  required
+                />
+              </div>
+            </div>
           </div>
-          <div className="flex flex-row justify-between items-center">
-            <Label>End Date</Label>
+        </div>
 
+        <div className="space-y-2">
+          <Label htmlFor="location" className="text-sm font-medium">
+            Location
+          </Label>
+          <div className="relative">
+            <MapPin className="absolute left-3 top-2 h-5 w-5 text-gray-400" />
             <Input
-              className="max-w-60"
-              type="datetime-local"
-              value={endDateTime}
-              onChange={(e) => setEndDateTime(e.target.value)}
+              id="location"
+              type="text"
+              placeholder="Enter location"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              className="pl-10 py-3"
               required
             />
           </div>
         </div>
-        <div className="space-y-2">
-          <Label>Location</Label>
-          <Input
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            placeholder="Location"
-            required
-          />
-        </div>
-        <div className="space-y-2">
-          <Label>Add Description</Label>
 
+        <div className="space-y-2">
+          <Label htmlFor="description" className="text-sm font-medium">
+            Description
+          </Label>
           <Textarea
+            id="description"
+            placeholder="Enter event description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="Description"
+            className="w-full px-4 py-3 min-h-[120px]"
             required
           />
         </div>
