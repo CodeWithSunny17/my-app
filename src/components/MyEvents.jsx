@@ -36,18 +36,18 @@ export default function MyEvents({ events, handleDelete }) {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4">
+    <div className="max-w-md mx-auto grid grid-cols-2 gap-4">
       {events.length === 0 ? (
         <p className="text-center text-gray-500">No events created yet</p>
       ) : (
         events.map((event) => (
           <Card
             key={event.id}
-            className="overflow-hidden border-0 shadow-lg rounded-xl my-4"
+            className="overflow-hidden border-0 shadow-lg rounded-xl"
           >
-            <CardContent className="p-0">
+            <CardContent className="p-0 flex flex-col justify-between">
               {event.media && (
-                <div className="relative aspect-[4/5] w-full overflow-hidden bg-gray-100">
+                <div className="relative w-full overflow-hidden bg-gray-100">
                   <img
                     src={event.media}
                     alt={event.title}
@@ -56,11 +56,11 @@ export default function MyEvents({ events, handleDelete }) {
                 </div>
               )}
               <div className="p-4">
-                <div className="flex justify-between items-center mb-3">
-                  <h3 className="text-xl font-semibold">{event.title}</h3>
+                <div className="flex justify-between items-center mb-2">
+                  <h3 className="text-lg font-semibold">{event.title}</h3>
                   <button
                     onClick={() => handleDelete(event.id)}
-                    className="text-red-500 hover:text-red-700"
+                    className="text-sm text-red-500 hover:text-red-700"
                   >
                     Delete
                   </button>
@@ -68,11 +68,13 @@ export default function MyEvents({ events, handleDelete }) {
                 <div className="space-y-2">
                   <div className="flex items-center text-gray-600">
                     <Calendar className="h-5 w-5 mr-3" />
-                    <span>{formatDateTime(event.startDateTime)}</span>
+                    <span className="text-sm">
+                      {formatDateTime(event.startDateTime)}
+                    </span>
                   </div>
                   <div className="flex items-center text-gray-600">
                     <MapPin className="h-5 w-5 mr-3" />
-                    <span>{event.location}</span>
+                    <span className="text-sm">{event.location}</span>
                   </div>
                 </div>
               </div>

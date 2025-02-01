@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef } from "react";
-import { Calendar, MapPin, Image, Plus } from "lucide-react";
+import { Calendar, MapPin, ImageUp, Plus, PencilLine } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -102,7 +102,7 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
-          className="space-y-2 relative aspect-[4/5] w-full overflow-hidden rounded-lg "
+          className="space-y-2 relative aspect-[4/5] w-full overflow-hidden rounded-xl flex justify-center"
         >
           {/* <Label htmlFor="media-upload" className="text-sm font-medium">
             Event Media
@@ -119,14 +119,18 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
             type="button"
             onClick={() => document.getElementById("media-upload").click()}
             variant="outline"
-            className="absolute bottom-6 w-full py-6 border-dashed border-2 bg-gray-50"
+            className="absolute bottom-6 py-4 bg-gray-50 w-[fit-content]"
           >
-            <div className="flex flex-col items-center gap-2">
-              <Image className="h-6 w-6 text-gray-400" />
+            <div className="flex items-center gap-2 justify-normal flex-row">
+              <ImageUp className="h-8 w-8 text-gray-500" />
               {mediaPreview ? (
-                <span className="text-gray-600">Replace Media</span>
+                <span className="text-gray-600 text-base font-medium">
+                  Replace Media
+                </span>
               ) : (
-                <span className="text-gray-600">Upload Media</span>
+                <span className="text-gray-600 text-base font-medium">
+                  Upload Media
+                </span>
               )}
             </div>
           </Button>
@@ -233,14 +237,17 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
           <Label htmlFor="description" className="text-sm font-medium">
             Description
           </Label>
-          <Textarea
-            id="description"
-            placeholder="Enter event description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className="w-full px-4 py-3 min-h-[120px]"
-            required
-          />
+          <div className="relative">
+            <PencilLine className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
+            <Textarea
+              id="description"
+              placeholder="Add a brief description to let attendees know what your event is all about"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="w-full pl-10 pr-4 py-3 min-h-[120px]"
+              required
+            />
+          </div>
         </div>
         <Button type="submit">Create Event</Button>
       </form>
