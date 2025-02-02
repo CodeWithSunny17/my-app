@@ -42,12 +42,9 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
       return;
     }
 
-    console.log("Selected File:", file);
-
     //Converts file to Base64 using FileReader()
     const reader = new FileReader();
     reader.onload = () => {
-      console.log("File Loaded Successfully:", reader.result);
       setMediaPreview(reader.result);
       setMediaFile(reader.result);
     };
@@ -98,7 +95,7 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
 
   return (
     <div className="max-w-md mx-auto p-4">
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form id="form-submit" onSubmit={handleSubmit} className="space-y-6">
         {/* Image input */}
         <div
           style={{
@@ -120,6 +117,7 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
             ref={fileInputRef}
             className="hidden"
             id="media-upload"
+            name="media"
           />
           <Button
             type="button"
@@ -156,8 +154,12 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
           <Label htmlFor="community" className="text-sm font-medium">
             Community
           </Label>
-          <Select value={community} onValueChange={setCommunity} id="community">
-            <SelectTrigger className="w-full py-3">
+          <Select
+            name="community"
+            value={community}
+            onValueChange={setCommunity}
+          >
+            <SelectTrigger className="w-full py-3" id="community">
               <SelectValue placeholder="Select Community" />
             </SelectTrigger>
             <SelectContent>
@@ -177,6 +179,7 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
           </Label>
           <Input
             id="title"
+            name="title"
             type="text"
             placeholder="Enter event title"
             value={title}
@@ -197,6 +200,7 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
                 {/* <Calendar className="absolute left-3 top-2 h-5 w-5 text-gray-400" /> */}
                 <Input
                   id="start-datetime"
+                  name="startDateTime"
                   type="datetime-local"
                   value={startDateTime}
                   onChange={(e) => setStartDateTime(e.target.value)}
@@ -210,9 +214,9 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
                 End Date
               </Label>
               <div className="relative">
-                {/* <Calendar className="absolute left-3 top-2 h-5 w-5 text-gray-400" /> */}
                 <Input
                   id="end-datetime"
+                  name="endDateTime"
                   type="datetime-local"
                   value={endDateTime}
                   onChange={(e) => setEndDateTime(e.target.value)}
@@ -233,6 +237,7 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
             <MapPin className="absolute left-3 top-2 h-5 w-5 text-gray-400" />
             <Input
               id="location"
+              name="location"
               type="text"
               placeholder="Enter location"
               value={location}
@@ -252,6 +257,7 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
             <PencilLine className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
             <Textarea
               id="description"
+              name="description"
               placeholder="Add a brief description to let attendees know what your event is all about"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
