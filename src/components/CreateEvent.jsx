@@ -33,6 +33,7 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
     { id: 5, name: "Music" },
   ];
 
+  //media file is uploaded using this function
   const handleMediaChange = (e) => {
     const file = e.target.files[0];
 
@@ -43,6 +44,7 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
 
     console.log("Selected File:", file);
 
+    //Converts file to Base64 using FileReader()
     const reader = new FileReader();
     reader.onload = () => {
       console.log("File Loaded Successfully:", reader.result);
@@ -57,6 +59,7 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
     reader.readAsDataURL(file);
   };
 
+  //form submit
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -71,12 +74,14 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
       media: mediaFile,
     };
 
+    //saving the data in local storage after stringifying
     setEvents((prevEvents) => {
       const updatedEvents = [...prevEvents, newEvent];
       localStorage.setItem("events", JSON.stringify(updatedEvents));
       return updatedEvents;
     });
 
+    //reset the state variables
     setMediaPreview(null);
     setCommunity("");
     setTitle("");
@@ -94,6 +99,7 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
   return (
     <div className="max-w-md mx-auto p-4">
       <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Image input */}
         <div
           style={{
             backgroundImage: `url(${
@@ -145,6 +151,7 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
           )} */}
         </div>
 
+        {/* Community Input */}
         <div className="space-y-2">
           <Label htmlFor="community" className="text-sm font-medium">
             Community
@@ -163,6 +170,7 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
           </Select>
         </div>
 
+        {/* Event Title Input */}
         <div className="space-y-2">
           <Label htmlFor="title" className="text-sm font-medium">
             Event Title
@@ -178,36 +186,37 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
           />
         </div>
 
+        {/* Start date and End date Input */}
         <div className="space-y-2">
           <div className="flex flex-col gap-4">
             <div className="flex flex-row justify-between items-center space-y-2">
               <Label htmlFor="start-datetime" className="text-sm font-medium">
-                Start Date & Time
+                Start Date
               </Label>
               <div className="relative">
-                <Calendar className="absolute left-3 top-2 h-5 w-5 text-gray-400" />
+                {/* <Calendar className="absolute left-3 top-2 h-5 w-5 text-gray-400" /> */}
                 <Input
                   id="start-datetime"
                   type="datetime-local"
                   value={startDateTime}
                   onChange={(e) => setStartDateTime(e.target.value)}
-                  className="pl-10 py-3"
+                  className="py-3"
                   required
                 />
               </div>
             </div>
             <div className="flex flex-row justify-between items-center space-y-2">
               <Label htmlFor="end-datetime" className="text-sm font-medium">
-                End Date & Time
+                End Date
               </Label>
               <div className="relative">
-                <Calendar className="absolute left-3 top-2 h-5 w-5 text-gray-400" />
+                {/* <Calendar className="absolute left-3 top-2 h-5 w-5 text-gray-400" /> */}
                 <Input
                   id="end-datetime"
                   type="datetime-local"
                   value={endDateTime}
                   onChange={(e) => setEndDateTime(e.target.value)}
-                  className="pl-10 py-3"
+                  className="py-3"
                   required
                 />
               </div>
@@ -215,6 +224,7 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
           </div>
         </div>
 
+        {/* Location Input */}
         <div className="space-y-2">
           <Label htmlFor="location" className="text-sm font-medium">
             Location
@@ -233,6 +243,7 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
           </div>
         </div>
 
+        {/* Description Input        */}
         <div className="space-y-2">
           <Label htmlFor="description" className="text-sm font-medium">
             Description
@@ -249,6 +260,7 @@ export default function CreateEvent({ setEvents, setActiveTab }) {
             />
           </div>
         </div>
+
         <Button type="submit">Create Event</Button>
       </form>
     </div>

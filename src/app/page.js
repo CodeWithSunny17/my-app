@@ -9,6 +9,7 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState("create");
   const [events, setEvents] = useState([]);
 
+  //fetching the data from the local storage after parsing the data to json
   useEffect(() => {
     const storedEvents = localStorage.getItem("events");
     if (storedEvents) {
@@ -16,10 +17,11 @@ export default function Home() {
     }
   }, []);
 
+  //Function to delete any event which were previously created, also updating the local storage
   const handleDelete = (eventId) => {
     const updatedEvents = events.filter(event => event.id !== eventId);
     setEvents(updatedEvents);
-    localStorage.setItem("events", JSON.stringify(updatedEvents));
+    localStorage.setItem("events", JSON.stringify(updatedEvents));  //updating the local storage
   };
 
   return (
@@ -56,7 +58,7 @@ export default function Home() {
       {/* Floating Button */}
       {activeTab === "events" && (
         <Button
-          className="fixed right-4 bottom-4 h-14 w-14 rounded-full shadow-lg bg-blue-600 hover:bg-blue-700"
+          className="fixed right-4 bottom-4 h-[6vh] w-[6vh] rounded-full shadow-lg bg-blue-600 hover:bg-blue-700"
           onClick={() => setActiveTab("create")}
         >
           <Plus className="h-6 w-6" />

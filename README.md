@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Event Manager
 
-## Getting Started
+## Overview
 
-First, run the development server:
+Event Manager is a web application built with Next.js and Tailwind CSS that allows users to create and manage events efficiently.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Features
+
+- Create events with media upload
+- View all created events in a grid layout
+- Delete events individually
+- Responsive design with a two-column grid layout
+
+## Installation
+
+1. Clone the repository:
+   ```sh
+   git clone <repository-url>
+   cd event-manager
+   ```
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+3. Run the development server:
+   ```sh
+   npm run dev
+   ```
+4. Open the application in your browser at `http://localhost:3000`
+
+## Technologies Used
+
+- Next.js
+- Tailwind CSS
+- React
+
+## Project Structure
+
+```
+/event-manager
+├── src
+│   ├── app
+│   │   ├── layout.js
+│   │   ├── page.js
+│   │   ├── globals.css
+│   ├── components
+│   │   ├── CreateEvent.jsx
+│   │   ├── MyEvents.jsx
+│   │   ├── ui
+│   │   │   ├── input.jsx
+│   │   │   ├── button.jsx
+│   │   │   ├── card.jsx
+│   │   │   ├── select.jsx
+│   │   │   ├── textarea.jsx
+│   │   │   ├── label.jsx
+│   ├── lib
+│   │   ├── utils.js
+├── public
+│   ├── image.png
+├── package.json
+├── tailwind.config.mjs
+├── next.config.mjs
+└── README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Usage
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+1. Click on 'Create Event' to add a new event.
+2. Upload an image and set event details.
+3. View your created events in a responsive grid layout.
+4. Click on the delete button to remove an event.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Contributing
 
-## Learn More
+Feel free to contribute by creating a pull request.
 
-To learn more about Next.js, take a look at the following resources:
+## License
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is open-source and available under the [MIT License](LICENSE).
