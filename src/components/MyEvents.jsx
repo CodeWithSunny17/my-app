@@ -1,5 +1,5 @@
 "use client";
-import { Calendar, MapPin } from "lucide-react";
+import { Calendar, MapPin, Trash2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 export default function MyEvents({ events, handleDelete }) {
@@ -36,7 +36,7 @@ export default function MyEvents({ events, handleDelete }) {
   };
 
   return (
-    <div className="max-w-md mx-auto grid grid-cols-2 gap-4">
+    <div className="max-w-sm mx-auto grid grid-cols-2 gap-4">
       {events.length === 0 ? (
         <p className="text-center text-gray-500">No events created yet</p>
       ) : (
@@ -56,25 +56,25 @@ export default function MyEvents({ events, handleDelete }) {
                 </div>
               )}
               <div className="p-4">
-                <div className="flex justify-between items-center mb-2">
-                  <h3 className="text-lg font-semibold">{event.title}</h3>
+                <div className="flex justify-between gap-1 items-start mb-2">
+                  <h3 className="font-semibold">{event.title}</h3>
                   <button
                     onClick={() => handleDelete(event.id)}
-                    className="text-sm text-red-500 hover:text-red-700"
+                    className="text-xs text-red-500 hover:text-red-700"
                   >
-                    Delete
+                    <Trash2 className="h-5 w-5" />
                   </button>
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center text-gray-600">
                     <Calendar className="h-5 w-5 mr-3" />
-                    <span className="text-sm">
+                    <span className="text-xs">
                       {formatDateTime(event.startDateTime)}
                     </span>
                   </div>
                   <div className="flex items-center text-gray-600">
                     <MapPin className="h-5 w-5 mr-3" />
-                    <span className="text-sm">{event.location}</span>
+                    <span className="text-xs">{event.location}</span>
                   </div>
                 </div>
               </div>
